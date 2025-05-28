@@ -1,26 +1,26 @@
-# 🔬 Bitespeed Identity Reconciliation Service
+# Bitespeed Identity Reconciliation Service
 
-This service is designed to solve the challenge of identifying and linking customer contacts across multiple purchases, even when they use different email addresses or phone numbers. It consolidates contact information and maintains primary/secondary relationships in a relational database.
+This service identifies and links customer contacts based on their email and phone numbers. It helps consolidate contact information from multiple purchases, maintaining a history by linking secondary contacts to a primary record.
 
 ---
 
-## ✨ Features
+## Key Features
 
-*   **Intelligent Linking:** Identifies and links contacts based on shared email or phone numbers.
-*   **Primary/Secondary Management:** Tracks relationships, promoting the oldest contact as primary.
-*   **Data Consolidation:** Provides a unified view of all contact information (emails, phone numbers) for a linked group.
-*   **RESTful API:** Exposes a simple `/identify` endpoint for integration.
-*   **Scalable Stack:** Built with Node.js, TypeScript, and TypeORM for a PostgreSQL database.
+*   Identifies and links contacts using email or phone.
+*   Manages primary and secondary contact relationships.
+*   Consolidates contact details for a single customer.
+*   Provides a `/identify` API endpoint.
+*   Built with Node.js, TypeScript, and TypeORM for PostgreSQL.
 
-## 🚀 Getting Started
+## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing.
+Follow these steps to get the project running locally.
 
 ### Prerequisites
 
-*   Node.js (v14 or higher)
-*   A PostgreSQL database instance (local or cloud, e.g., [Neon](https://neon.tech/))
-*   npm or yarn package manager
+*   Node.js (v14+)
+*   PostgreSQL database
+*   npm or yarn
 
 ### Setup
 
@@ -37,20 +37,20 @@ These instructions will get you a copy of the project up and running on your loc
 
 3.  Set up your PostgreSQL database:
     *   Create a database named `bitespeed`.
-    *   Ensure your database is accessible.
+    *   Ensure it's accessible.
 
-4.  Create a `.env` file in the root directory with your database credentials and desired port:
+4.  Create a `.env` file in the project root with your database credentials and server port:
     ```dotenv
     DB_HOST=your_db_host
     DB_PORT=your_db_port # e.g., 5432
     DB_USERNAME=your_db_username
     DB_PASSWORD=your_db_password
     DB_DATABASE=bitespeed
-    PORT=3000 # or 3001
+    PORT=3000 # or any available port
     ```
-    *(Note: Do not commit your `.env` file to Git. It's already included in `.gitignore`)*
+    *(Do not commit `.env` to Git. It's in `.gitignore`)*
 
-5.  Build the TypeScript project:
+5.  Build the project:
     ```bash
     npm run build
     ```
@@ -60,75 +60,67 @@ These instructions will get you a copy of the project up and running on your loc
     npm start
     ```
 
-The server will run on the port specified in your `.env` file (defaulting to 3000).
+The server will listen on the port specified in your `.env` file.
 
-For development with hot-reloading:
+For development with hot-reloading, use:
 ```bash
 npm run dev
 ```
 
-## 💡 API Usage
+## API Endpoint
 
-The service exposes a single endpoint for contact identification.
+The primary API endpoint is `/identify`.
 
 ### `POST /identify`
 
-Identifies and consolidates contact information based on the provided email and/or phone number.
+Processes incoming contact information and returns consolidated details.
 
-*   **URL:** `<Your Deployed Endpoint URL Here>/identify` (Replace with the actual URL once deployed)
+*   **URL:** `<Your Deployed Endpoint URL Here>/identify`
 *   **Method:** `POST`
-*   **Body:** `application/json`
+*   **Content-Type:** `application/json`
 
 **Request Body Example:**
 
 ```json
 {
-    "email": "example@email.com",
+    "email": "test@example.com",
     "phoneNumber": "1234567890"
 }
 ```
 
-*Note: At least one of `email` or `phoneNumber` must be provided.* The `phoneNumber` should be sent as a string.
+*Note: Provide at least an `email` or a `phoneNumber`.*
 
-**Response Body Example (HTTP 200):**
+**Successful Response (HTTP 200):**
 
 ```json
 {
     "contact": {
         "primaryContatctId": 1,
-        "emails": ["primary@email.com","secondary@email.com"],
+        "emails": ["primary@example.com","secondary@example.com"],
         "phoneNumbers": ["1234567890","0987654321"],
         "secondaryContactIds": [2, 3]
     }
 }
 ```
 
-## ✅ Running Tests
+## Running Tests
 
-To ensure the contact linking logic is functioning correctly, run the test suite:
+Run the test suite to verify the linking logic:
 
 ```bash
 npm test
 ```
 
-Make sure your database is accessible for the tests to run.
+Ensure your database is accessible for tests.
 
 ---
 
 ## Deployment
 
-This application can be deployed to services like Render.com. Ensure environment variables for the database connection are configured on the hosting platform.
-
----
-
-## Contributing
-
-Feel free to fork the repository and contribute!
+This service is suitable for deployment on platforms supporting Node.js web services and PostgreSQL, such as Render.com or similar services.
 
 ---
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
---- 
+MIT License - see `LICENSE.md` 
