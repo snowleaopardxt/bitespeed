@@ -75,7 +75,7 @@ The primary API endpoint is `/identify`.
 
 Processes incoming contact information and returns consolidated details.
 
-*   **URL:** `<Your Deployed Endpoint URL Here>/identify`
+*   **URL:** `https://bitespeed-6fgx.onrender.com/identify`
 *   **Method:** `POST`
 *   **Content-Type:** `application/json`
 
